@@ -123,9 +123,9 @@ x_precision  = args.precision;
 calculator = FilmCurve(zones, densities, x_precision)
 
 if find_density:
-	print calculator.findY( find_density )
+	print calculator.findDensity( find_density )
 elif find_zone:
-	print calculator.findX( find_zone )
+	print calculator.findZone( find_zone )
 else:
 	# Neither-nor, so print statistics.
 	np.set_printoptions(precision=14,suppress=True)
