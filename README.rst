@@ -47,9 +47,11 @@ Usage · Command-line API
 
 .. code:: bash
 
-    $ curvefit -x X [X ...] -y Y [Y ...]
-               [--findx Y | --findy X]
-               [-h] [-p P] [--plot file]
+    $ filmcurve -z Z [Z ...] -d D [D ...]
+                [--density logD | --zone Zone]
+                [-p P]
+                [--plot file]
+                [-h] 
                
     # Print help text
     $ filmcurve
@@ -76,8 +78,8 @@ Required Arguments
 Mutually exclusive options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If neither *findx* nor *findy* are passed, the script prints the
-polynomial coefficients and residuals.
+If neither *density option* nor *zone option* are passed, the script
+prints the polynomial coefficients and residuals.
 
 +-------------------+----------------+---------------------------------+
 | Option            | Argument       | Description                     |
