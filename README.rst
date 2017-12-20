@@ -1,11 +1,11 @@
 FilmCurve · CLI
 ===============
 
-**Finds zone (or density) for a given density (or zone, resp.) by
-polynomial interpolation. Prints the polynomial coefficients if no zone
-or density value to seek for are passed.**
+**Finds zone number for a given film density value (or vice versa) by
+polynomial interpolation.
+EARLY EXPERIMENTAL**
 
-It requires Python’s **`matplotlib <https://matplotlib.org/>`__** and
+Requires Python’s **`matplotlib <https://matplotlib.org/>`__** and
 **`numpy <http://www.numpy.org/>`__** library.
 
 Installation · Linux
