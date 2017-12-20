@@ -168,7 +168,7 @@ Found result: 0.444405594406 OK
 
 ## Issues + Development
 
-Being a Python beginner, I assume the script structure can (and surely should) be improved. Any help with this will be appreciated. Feel free to PR or open an issue – head over to the [issues page.](https://github.com/filmtools/curvefit/issues)
+Being a Python beginner, I assume the script structure can (and surely should) be improved. Any help with this will be appreciated. Feel free to PR or open an issue – head over to the [issues page.](https://github.com/filmtools/filmcurve/issues)
 
 ```bash
 $ git clone https://github.com/filmtools/filmcurve
