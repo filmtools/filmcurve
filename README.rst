@@ -2,14 +2,26 @@
 
    <div align="center">
 
-::
+.. raw:: html
 
-    <h1>FilmCurve · CLI</h1>
+   <h1>
 
-    <p>
-        <strong>Finds zone number for a given film density value (or vice versa).<br>
-        EARLY EXPERIMENTAL</strong>
-    </p>
+FilmCurve · CLI
+
+.. raw:: html
+
+   </h1>
+
+.. raw:: html
+
+   <p>
+
+Finds zone number for a given film density value (or vice versa). EARLY
+EXPERIMENTAL
+
+.. raw:: html
+
+   </p>
 
 .. raw:: html
 
