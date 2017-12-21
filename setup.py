@@ -14,7 +14,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 
 setup(name='FilmCurve',
-    version='2.0.3',
+    version='0.0.2',
     description='Finds X (or Y) value for a given Y (or X, resp.) on a film density curve.',
     long_description=long_description,
     classifiers=[
