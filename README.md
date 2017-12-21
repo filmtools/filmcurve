@@ -130,40 +130,26 @@ Residuals:
 
 ## Testing
 
-Go to project directory and start `test` script. The test script exits with error code `1` when a test run fails.
+Go to project directory and run `pytest`. 
 
 ```bash
-$ ./test && echo "All went fine"
+$ pytest -v
 ```
 
-
-Output will look like this:
+Output should look like this:
 
 ```
-****** Test: FilmCurve.getOffset ******
-Zoness: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
-Densities: [0.02, 0.08, 0.17, 0.29, 0.44, 0.63, 0.86, 1.03, 1.16, 1.22, 1.34]
-Max. allowed deviation: 0.01
-Find zone offset for density: 1.29
-Expected zone: 8.0
-Expected offset: -1.62
-Found offset: -1.62843643438 OK
+=============================== test session starts ================================
+platform darwin -- Python 2.7.14, pytest-3.3.1, py-1.5.2, pluggy-0.6.0 -- /usr/local/opt/python/bin/python2.7
+cachedir: .cache
+rootdir: /path/to/filmcurve, inifile:
+collected 3 items
 
-****** Test: FilmCurve.findZone ******
-Zoness: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
-Densities: [0.02, 0.08, 0.17, 0.29, 0.44, 0.63, 0.86, 1.03, 1.16, 1.22, 1.34]
-Max. allowed deviation: 0.01
-Find zone for density: 1.29
-Expected result: 9.63
-Found result: 9.62843643438 OK
+tests/test_filmcurve.py::TestFilmCurve::test_findOffset[8-1.29--1.63] PASSED [ 33%]
+tests/test_filmcurve.py::TestFilmCurve::test_FindZone[1.29-9.63] PASSED      [ 66%]
+tests/test_filmcurve.py::TestFilmCurve::test_findDensity[4.0-0.44] PASSED    [100%]
 
-****** Test: FilmCurve.findDensity ******
-Zoness: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
-Densities: [0.02, 0.08, 0.17, 0.29, 0.44, 0.63, 0.86, 1.03, 1.16, 1.22, 1.34]
-Find density for zone: 4.0
-Max. allowed deviation: 0.01
-Expected result: 0.44
-Found result: 0.444405594406 OK
+============================= 3 passed in 0.18 seconds =============================
 ```
 
 
