@@ -2,17 +2,24 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-def readme():
-    with open('README.md') as f:
-        return f.read()
+
+### Artifact from early steps with Python.
+### For now, leave it until known what's the best way.
+
+# def readme():
+#     with open('README.md') as f:
+#         return f.read()
+
 
 here = path.abspath(path.dirname(__file__))
 
-# Get the long description from the README file
+
+### Get the long description from the README file
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 
+### The setup
 setup(name='FilmCurve',
     version='0.0.2',
     description='Finds X (or Y) value for a given Y (or X, resp.) on a film density curve.',
