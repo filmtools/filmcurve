@@ -19,7 +19,7 @@ setup(name='FilmCurve',
     long_description=long_description,
     classifiers=[
         'Development Status :: 3 - Alpha',
-        # 'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7'
     ],
     keywords='film developing density polynomial interpolation',
