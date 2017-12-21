@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
-# This file should go into a new tests/ directory. See issue #2
+# This file should go into a new tests/ directory.
 
 import subprocess
 import sys
 
 from FilmTools.FilmCurve import FilmCurve
+
 
 # ----------------------------
 # Prerequisites
@@ -22,6 +23,9 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+# ----------------------------
+# Test routines
+# ----------------------------
 
 def testFindOffset( zones, densities, density, target, expected_offset, max_deviation = 0.01  ):
 	print
@@ -98,10 +102,8 @@ def testFindDensity( zones, densities, zone, expected, max_deviation = 0.01 ):
 
 
 # ----------------------------
-# Test Setup
+# Test Data
 # ----------------------------
-
-
 
 zones = [ 0.00, 1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00 ]
 densities = [ 0.02, 0.08, 0.17, 0.29, 0.44, 0.63, 0.86, 1.03, 1.16, 1.22, 1.34 ]
