@@ -1,12 +1,19 @@
-FilmCurve · CLI
-===============
+.. raw:: html
 
-**Finds zone number for a given film density value (or vice versa) by
-polynomial interpolation.
-EARLY EXPERIMENTAL**
+   <div align="center">
 
-Requires Python’s **`matplotlib <https://matplotlib.org/>`__** and
-**`numpy <http://www.numpy.org/>`__** library.
+::
+
+    <h1>FilmCurve · CLI</h1>
+
+    <p>
+        <strong>Finds zone number for a given film density value (or vice versa).<br>
+        EARLY EXPERIMENTAL</strong>
+    </p>
+
+.. raw:: html
+
+   </div>
 
 Installation · Linux
 --------------------
@@ -189,6 +196,13 @@ Output will look like this:
     Max. allowed deviation: 0.01
     Expected result: 0.44
     Found result: 0.444405594406 OK
+
+Requirements
+------------
+
+This application requires Python’s
+**`matplotlib <https://matplotlib.org/>`__** and
+**`numpy <http://www.numpy.org/>`__** library.
 
 Issues + Development
 --------------------
