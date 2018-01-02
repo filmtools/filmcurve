@@ -154,13 +154,16 @@ if plotfile:
 	plt.yscale('linear')
 
 	plt.plot( calculator.zones, calculator.densities,
-		label='Zone/density pairs')
+		label='Zone/density pairs',
+		zorder=10)
 
 	plt.plot( calculator.zones, curvefit,
-		label='polynomial')
+		label='Polynomial model',
+		linestyle=':',
+		zorder=1)
 
 	plt.plot( calculator.zones, curvefit - calculator.densities,
-		label='deviation')
+		label='Model deviation')
 
 	plt.xlabel('zones')
 	plt.ylabel('densities')
