@@ -60,6 +60,14 @@ CLI.add_argument(
   Default: 12 (quite fast/appropriate)"""
 )
 
+CLI.add_argument(
+  "--offset",
+  metavar='Zones',
+  type=float,
+  default=0.0,
+  help="""Offset zone numbers before calculation"""
+)
+
 
 CLI.add_argument(
   "--plot",
@@ -112,6 +120,7 @@ find_zone    = args.density;
 find_density = args.zone;
 plotfile     = args.plot;
 x_precision  = args.precision;
+zone_offset  = args.offset;
 
 
 
@@ -120,7 +129,9 @@ x_precision  = args.precision;
 # The Business
 # ----------------------------------------------------------
 
-calculator = FilmCurve(zones, densities, x_precision)
+offset_zones = [x+zone_offset for x in zones]
+
+calculator = FilmCurve(offset_zones, densities, x_precision)
 
 if find_density:
 	print calculator.findDensity( find_density )
@@ -153,9 +164,16 @@ if plotfile:
 
 	plt.yscale('linear')
 
-	plt.plot( calculator.zones, calculator.densities,
+	plt.yticks(np.arange(min(calculator.densities,0), max(calculator.densities)+0.1, 0.1))
+	plt.xticks(np.arange(min(calculator.zones,0), max(calculator.zones)+1, 1.0))
+
+	plt.plot( zones, calculator.densities,
 		label='Zone/density pairs',
 		zorder=10)
+
+	plt.plot( calculator.zones, calculator.densities,
+		label='Zone/density pairs, speed offset applied',
+		zorder=8)
 
 	plt.plot( calculator.zones, curvefit,
 		label='Polynomial model',
@@ -165,8 +183,8 @@ if plotfile:
 	plt.plot( calculator.zones, curvefit - calculator.densities,
 		label='Model deviation')
 
-	plt.xlabel('zones')
-	plt.ylabel('densities')
+	plt.xlabel('Zones')
+	plt.ylabel( "logD")
 
 	plt.grid()
 	plt.legend()
