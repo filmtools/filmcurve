@@ -38,9 +38,30 @@ class FilmCurve:
         # incrementing with decreasing steps
         # until calculated y (density) value slightly below the target value
 
+        density_in_curve=False
+        for z in self.zones:
+            if not density_in_curve:
+                y = self.interpolator( z )
+                if y >= density:
+                    density_in_curve = True
+
+
+        if density_in_curve:
+            x = 0
+        else:
+            y_found = False
+            for x in range(1, 100000, 1):
+                y = self.interpolator( x )
+                # print "x,y: ", x, y
+                if y >= density:
+                    y_found = True
+                    return y
+            if not y_found:
+                return x
+            x = x - 1
+
         timeout = time.time() + 30 # 30 seconds from now
 
-        x = 0
         y = None
         for i in range(1, self.x_precision):
             x_increment = (10**i-1)**-1
