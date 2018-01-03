@@ -60,6 +60,14 @@ CLI.add_argument(
   Default: 12 (quite fast/appropriate)"""
 )
 
+CLI.add_argument(
+  "--offset",
+  metavar='Zones',
+  type=float,
+  default=0.0,
+  help="""Offset zone numbers before calculation"""
+)
+
 
 CLI.add_argument(
   "--plot",
@@ -112,6 +120,7 @@ find_zone    = args.density;
 find_density = args.zone;
 plotfile     = args.plot;
 x_precision  = args.precision;
+zone_offset  = args.offset;
 
 
 
@@ -119,6 +128,8 @@ x_precision  = args.precision;
 # ----------------------------------------------------------
 # The Business
 # ----------------------------------------------------------
+
+zones = [x+zone_offset for x in zones]
 
 calculator = FilmCurve(zones, densities, x_precision)
 
