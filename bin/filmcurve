@@ -21,8 +21,7 @@ from FilmTools.FilmCurve import FilmCurve
 CLI=argparse.ArgumentParser(
 	prog='filmcurve',
 
-	description="""Finds zone (or density) for a given density (or zone, resp.)
-    by polynomial interpolation.""",
+	description="""Analyses the given zone numbers and film densities, using a quintic polynomial.""",
 
 	epilog="""N.B. This program is intended for photographic/densitometric purposes.
 	It surely is not 'state of the art' polynomial analysis."""
@@ -51,20 +50,11 @@ CLI.add_argument(
 
 
 CLI.add_argument(
-  "-p", "--precision",
-  metavar='P',
-  type=int,
-  default=12,
-  help="""Goal seek precision, e.g. 3=fast/unexact, 16=slow/overdone.
-  Default: 12 (quite fast/appropriate)"""
-)
-
-CLI.add_argument(
   "--offset",
   metavar='Zones',
   type=float,
   default=0.0,
-  help="""Offset zone numbers before calculation"""
+  help="""Offset zone numbers before calculation. Option 'test' ignores this."""
 )
 
 
@@ -78,7 +68,24 @@ CLI.add_argument(
   "--verbose", '-v',
   action='count',
   default=0,
-  help="Output verbosity."
+  help="Output verbosity: Try 'v', 'vv', and 'vvv'."
+)
+
+CLI.add_argument(
+  "--math",
+  action='store_true',
+  default=False,
+  help="Display polynomial coefficients and other maths."
+)
+
+
+CLI.add_argument(
+  "-p", "--precision",
+  metavar='Precision',
+  type=int,
+  default=12,
+  help="""Goal seek precision, e.g. 3=fast/unexact, 16=slow/overdone.
+  Default: 12 (quite fast/appropriate)"""
 )
 
 find_arguments = CLI.add_mutually_exclusive_group()
@@ -102,13 +109,6 @@ find_arguments.add_argument(
   action='store_true',
   default=False,
   help="Perform film test."
-)
-
-find_arguments.add_argument(
-  "--math",
-  action='store_true',
-  default=False,
-  help="Display polynomial curvefit information."
 )
 
 
@@ -161,6 +161,7 @@ elif find_zone:
 
 	print calculator.findZone( find_zone )
 
+
 elif perform_test:
 	calculator = FilmCurve(zones, densities, x_precision)
 
@@ -174,10 +175,10 @@ elif perform_test:
 
 	# Speed things
 	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
-	if verbosity > 0:
+	if verbosity > 1:
+		print "Speed offset: {0:0.6f} f-stops".format( speed_offset )
+	elif verbosity > 0:
 		print "Speed offset: {0:0.2f} f-stops".format( speed_offset )
-	else:
-		print speed_offset
 
 
 	# Now that we have the speedpoint offset,
@@ -193,28 +194,36 @@ elif perform_test:
 	# Gamma
 	gamma = (zone8_density - zone1_density) / ((target_zone - speed_zone) * log2)
 
-	if verbosity > 0:
+	if verbosity > 1:
+		print "Gamma: {0:0.6f}".format( gamma )
+	elif verbosity > 0:
 		print "Gamma: {0:0.2f}".format( gamma )
-	else:
-		print gamma
 
 	# Beta
 	beta = (zone5_density - zone1_density) / ((midtone_zone - speed_zone) * log2)
-	if verbosity > 0:
+	if verbosity > 1:
+		print "Beta: {0:0.6f}".format( beta )
+	elif verbosity > 0:
 		print "Beta: {0:0.2f}".format( beta )
-	else:
-		print beta
 
 	# N
 	N = ( (target_zone-speed_zone) * log2 - ((target_density - speedpoint_density) / gamma)) / log2
-	if verbosity > 0:
-		N = 0.33
+	if verbosity > 1:
+		print "Zone system: N{0:+0.6f}".format( N )
+	elif verbosity > 0:
 		print "Zone system: N{0:+0.2f}".format( N )
-	else:
-		print N
+
+	if verbosity < 1:
+		print "{0:0.2f} {1:0.2f} {2:0.2f} N{3:+0.2f}".format( speed_offset,gamma,beta,N )
 
 
-elif show_math:
+# ----------------------------------------------------------
+# Optional things
+# ----------------------------------------------------------
+if show_math:
+	offset_zones = [x+zone_offset for x in zones]
+	calculator = FilmCurve(offset_zones, densities, x_precision)
+
 	# Neither-nor, so print statistics.
 	np.set_printoptions(precision=14,suppress=True)
 
@@ -225,12 +234,6 @@ elif show_math:
 	print "Residuals:"
 	print calculator.residuals
 	print ""
-
-
-
-# ----------------------------------------------------------
-# Optional things
-# ----------------------------------------------------------
 
 if plotfile:
 
