@@ -75,6 +75,11 @@ CLI.add_argument(
   help="Plot to file"
 )
 
+CLI.add_argument(
+  "--verbose", '-v',
+  action='count',
+  default=0
+)
 
 find_arguments = CLI.add_mutually_exclusive_group()
 
@@ -129,12 +134,11 @@ plotfile     = args.plot;
 x_precision  = args.precision;
 zone_offset  = args.offset;
 perform_test = args.test
-
+verbosity    = args.verbose
 
 # ----------------------------------------------------------
 # The Business
 # ----------------------------------------------------------
-
 
 
 if find_density:
@@ -152,6 +156,7 @@ elif find_zone:
 elif perform_test:
 	calculator = FilmCurve(zones, densities, x_precision)
 
+	# Prerequisites
 	speed_zone = 1
 	speedpoint_density = 0.1
 	midtone_zone = 5
@@ -161,7 +166,11 @@ elif perform_test:
 
 	# Speed things
 	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
-	print speed_offset
+	if verbosity > 0:
+		print "Speed offset: {0:0.2f}".format( speed_offset )
+	else:
+		print speed_offset
+
 
 	# Now that we have the speedpoint offset,
 	# use a new calculator instance with this very speed offset.
@@ -175,15 +184,27 @@ elif perform_test:
 
 	# Gamma
 	gamma = (zone8_density - zone1_density) / ((target_zone - speed_zone) * log2)
-	print gamma
+
+	if verbosity > 0:
+		print "Gamma: {0:0.2f}".format( gamma )
+	else:
+		print gamma
 
 	# Beta
 	beta = (zone5_density - zone1_density) / ((midtone_zone - speed_zone) * log2)
-	print beta
+	if verbosity > 0:
+		print "Beta: {0:0.2f}".format( beta )
+	else:
+		print beta
 
 	# N
 	N = ( (target_zone-speed_zone) * log2 - ((target_density - speedpoint_density) / gamma)) / log2
-	print N
+	if verbosity > 0:
+		N = 0.33
+		print "Zone system: N{0:+0.2f}".format( N )
+	else:
+		print N
+
 
 
 
