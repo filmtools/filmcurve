@@ -1,5 +1,6 @@
 import numpy as np
 import time
+from numpy.polynomial import polynomial as P
 
 class FilmCurve:
 
@@ -10,11 +11,14 @@ class FilmCurve:
         self.densities = densities
         self.x_precision = x_precision
 
+        zones_a = np.array( zones )
+        densities_a = np.array( densities )
+
         #
         # Determine the 5th grade polynomial coefficients
         # and create f(y) model function
         #
-        coefficients, residuals, _, _, _ = np.polyfit(zones, densities, 5, full=True)
+        coefficients, residuals, _, _, _ = np.polyfit(zones_a, densities_a, 5, full=True)
         self.coefficients = coefficients
         self.residuals    = residuals
         self.interpolator = np.poly1d( coefficients )
@@ -34,34 +38,16 @@ class FilmCurve:
     #
     def findZone( self, density ):
 
+        # zone_interpolated = np.interp( density, self.interpolator(self.zones), self.zones)
+        # return zone_interpolated
+
+        timeout = time.time() + 30 # 30 seconds from now
+
         # Find good start point for x,
         # incrementing with decreasing steps
         # until calculated y (density) value slightly below the target value
 
-        density_in_curve=False
-        for z in self.zones:
-            if not density_in_curve:
-                y = self.interpolator( z )
-                if y >= density:
-                    density_in_curve = True
-
-
-        if density_in_curve:
-            x = 0
-        else:
-            y_found = False
-            for x in range(1, 100000, 1):
-                y = self.interpolator( x )
-                # print "x,y: ", x, y
-                if y >= density:
-                    y_found = True
-                    return y
-            if not y_found:
-                return x
-            x = x - 1
-
-        timeout = time.time() + 30 # 30 seconds from now
-
+        x = 0
         y = None
         for i in range(1, self.x_precision):
             x_increment = (10**i-1)**-1

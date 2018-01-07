@@ -92,6 +92,13 @@ find_arguments.add_argument(
   help="Print density value for this zone number."
 )
 
+find_arguments.add_argument(
+  "--test",
+  action='store_true',
+  default=False,
+  help="Perform film test."
+)
+
 
 
 
@@ -121,22 +128,66 @@ find_density = args.zone;
 plotfile     = args.plot;
 x_precision  = args.precision;
 zone_offset  = args.offset;
-
-
+perform_test = args.test
 
 
 # ----------------------------------------------------------
 # The Business
 # ----------------------------------------------------------
 
-offset_zones = [x+zone_offset for x in zones]
 
-calculator = FilmCurve(offset_zones, densities, x_precision)
 
 if find_density:
+	offset_zones = [x+zone_offset for x in zones]
+	calculator = FilmCurve(offset_zones, densities, x_precision)
+
 	print calculator.findDensity( find_density )
+
 elif find_zone:
+	offset_zones = [x+zone_offset for x in zones]
+	calculator = FilmCurve(offset_zones, densities, x_precision)
+
 	print calculator.findZone( find_zone )
+
+elif perform_test:
+	calculator = FilmCurve(zones, densities, x_precision)
+
+	speed_zone = 1
+	speedpoint_density = 0.1
+	midtone_zone = 5
+	target_zone = 8
+	target_density = 1.29
+	log2 = np.log10(2);
+
+	# Speed things
+	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
+	print speed_offset
+
+	# Now that we have the speedpoint offset,
+	# use a new calculator instance with this very speed offset.
+	offset_zones = [x+speed_offset for x in zones]
+	calculator = FilmCurve(offset_zones, densities, x_precision)
+
+	# Get some data
+	zone1_density = calculator.findDensity( speed_zone )
+	zone5_density = calculator.findDensity( midtone_zone )
+	zone8_density = calculator.findDensity( target_zone )
+
+	# Gamma
+	gamma = (zone8_density - zone1_density) / ((target_zone - speed_zone) * log2)
+	print gamma
+
+	# Beta
+	beta = (zone5_density - zone1_density) / ((midtone_zone - speed_zone) * log2)
+	print beta
+
+	# N
+	N = ( (target_zone-speed_zone) * log2 - ((target_density - speedpoint_density) / gamma)) / log2
+	print N
+
+
+
+
 else:
 	# Neither-nor, so print statistics.
 	np.set_printoptions(precision=14,suppress=True)
@@ -171,9 +222,9 @@ if plotfile:
 		label='Zone/density pairs',
 		zorder=10)
 
-	plt.plot( calculator.zones, calculator.densities,
-		label='Zone/density pairs, speed offset applied',
-		zorder=8)
+	# plt.plot( calculator.zones, calculator.densities,
+	#	 label='Zone/density pairs, speed offset applied',
+	#	zorder=8)
 
 	plt.plot( calculator.zones, curvefit,
 		label='Polynomial model',
