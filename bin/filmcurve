@@ -77,7 +77,8 @@ CLI.add_argument(
 CLI.add_argument(
   "--verbose", '-v',
   action='count',
-  default=0
+  default=0,
+  help="Output verbosity."
 )
 
 find_arguments = CLI.add_mutually_exclusive_group()
