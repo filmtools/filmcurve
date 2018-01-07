@@ -22,8 +22,7 @@ CLI=argparse.ArgumentParser(
 	prog='filmcurve',
 
 	description="""Finds zone (or density) for a given density (or zone, resp.)
-    by polynomial interpolation. Prints the polynomial coefficients
-    if no zone or density value to seek for are passed.""",
+    by polynomial interpolation.""",
 
 	epilog="""N.B. This program is intended for photographic/densitometric purposes.
 	It surely is not 'state of the art' polynomial analysis."""
@@ -104,6 +103,13 @@ find_arguments.add_argument(
   help="Perform film test."
 )
 
+find_arguments.add_argument(
+  "--math",
+  action='store_true',
+  default=False,
+  help="Display polynomial curvefit information."
+)
+
 
 
 
@@ -135,6 +141,7 @@ x_precision  = args.precision;
 zone_offset  = args.offset;
 perform_test = args.test
 verbosity    = args.verbose
+show_math    = args.math
 
 # ----------------------------------------------------------
 # The Business
@@ -167,7 +174,7 @@ elif perform_test:
 	# Speed things
 	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
 	if verbosity > 0:
-		print "Speed offset: {0:0.2f}".format( speed_offset )
+		print "Speed offset: {0:0.2f} f-stops".format( speed_offset )
 	else:
 		print speed_offset
 
@@ -206,10 +213,7 @@ elif perform_test:
 		print N
 
 
-
-
-
-else:
+elif show_math:
 	# Neither-nor, so print statistics.
 	np.set_printoptions(precision=14,suppress=True)
 
