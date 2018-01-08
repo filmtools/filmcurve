@@ -148,23 +148,18 @@ show_math    = args.math
 # The Business
 # ----------------------------------------------------------
 
+calculator = FilmCurve(zones, densities, x_precision)
 
 if find_density:
-	offset_zones = [x+zone_offset for x in zones]
-	calculator = FilmCurve(offset_zones, densities, x_precision)
-
+	calculator.setOffset( zone_offset )
 	print calculator.findDensity( find_density )
 
 elif find_zone:
-	offset_zones = [x+zone_offset for x in zones]
-	calculator = FilmCurve(offset_zones, densities, x_precision)
-
+	calculator.setOffset( zone_offset )
 	print calculator.findZone( find_zone )
 
 
 elif perform_test:
-	calculator = FilmCurve(zones, densities, x_precision)
-
 	# Prerequisites
 	speed_zone = 1
 	speedpoint_density = 0.1
@@ -179,7 +174,7 @@ elif perform_test:
 	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
 	calculator.setOffset(speed_offset)
 	if verbosity > 1:
-		print "Speed offset: {0:0.6f} f-stops".format( speed_offset )
+		print "Speed offset: {0:0.9f} f-stops".format( speed_offset )
 	elif verbosity > 0:
 		print "Speed offset: {0:0.2f} f-stops".format( speed_offset )
 
@@ -193,35 +188,32 @@ elif perform_test:
 	gamma = (zone8_density - zone1_density) / ((target_zone - speed_zone) * log2)
 
 	if verbosity > 1:
-		print "Gamma: {0:0.6f}".format( gamma )
+		print "Gamma: {0:0.9f}".format( gamma )
 	elif verbosity > 0:
 		print "Gamma: {0:0.2f}".format( gamma )
 
 	# Beta
 	beta = (zone5_density - zone1_density) / ((midtone_zone - speed_zone) * log2)
 	if verbosity > 1:
-		print "Beta: {0:0.6f}".format( beta )
+		print "Beta: {0:0.9f}".format( beta )
 	elif verbosity > 0:
 		print "Beta: {0:0.2f}".format( beta )
 
-	# N
+	# N Developing - Zone system
 	N = ( (target_zone-speed_zone) * log2 - ((target_density - speedpoint_density) / gamma)) / log2
 	if verbosity > 1:
-		print "Zone system: N{0:+0.6f}".format( N )
+		print "Zone system: N{0:+0.9f}".format( N )
 	elif verbosity > 0:
 		print "Zone system: N{0:+0.2f}".format( N )
 
 	if verbosity < 1:
-		print "{0:0.2f} {1:0.2f} {2:0.2f} N{3:+0.2f}".format( speed_offset,gamma,beta,N )
+		print "{0:0.2f} {1:0.2f} {2:0.2f} {3:+0.2f}".format( speed_offset,gamma,beta,N )
 
 
 # ----------------------------------------------------------
 # Optional things
 # ----------------------------------------------------------
 if show_math:
-	offset_zones = [x+zone_offset for x in zones]
-	calculator = FilmCurve(offset_zones, densities, x_precision)
-
 	# Neither-nor, so print statistics.
 	np.set_printoptions(precision=14,suppress=True)
 
