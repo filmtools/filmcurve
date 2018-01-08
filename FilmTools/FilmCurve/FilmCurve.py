@@ -11,14 +11,15 @@ class FilmCurve:
         self.densities = densities
         self.x_precision = x_precision
 
-        zones_a = np.array( zones )
-        densities_a = np.array( densities )
 
         #
         # Determine the 5th grade polynomial coefficients
         # and create f(y) model function
         #
-        coefficients, residuals, _, _, _ = np.polyfit(zones_a, densities_a, 5, full=True)
+        zones_arr = np.array( zones )
+        densities_arr = np.array( densities )
+        coefficients, residuals, _, _, _ = np.polyfit(zones_arr, densities_arr, 5, full=True)
+
         self.coefficients = coefficients
         self.residuals    = residuals
         self.interpolator = np.poly1d( coefficients )
