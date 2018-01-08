@@ -173,18 +173,16 @@ elif perform_test:
 	target_density = 1.29
 	log2 = np.log10(2);
 
+
 	# Speed things
+	# Once we have the speedpoint offset, apply it to the calculator
 	speed_offset = calculator.getOffset( speed_zone, speedpoint_density)
+	calculator.setOffset(speed_offset)
 	if verbosity > 1:
 		print "Speed offset: {0:0.6f} f-stops".format( speed_offset )
 	elif verbosity > 0:
 		print "Speed offset: {0:0.2f} f-stops".format( speed_offset )
 
-
-	# Now that we have the speedpoint offset,
-	# use a new calculator instance with this very speed offset.
-	offset_zones = [x+speed_offset for x in zones]
-	calculator = FilmCurve(offset_zones, densities, x_precision)
 
 	# Get some data
 	zone1_density = calculator.findDensity( speed_zone )

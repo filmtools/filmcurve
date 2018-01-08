@@ -27,6 +27,7 @@ class FilmCurve:
         self.interpolator = np.poly1d( self.coefficients )
 
 
+
     #
     # OK, thats simple
     #
@@ -76,6 +77,11 @@ class FilmCurve:
 
         # x is zone
         return x
+
+
+    def setOffset( self, offset ):
+        offset_zones = [ x + offset for x in self.zones]
+        self.setZones( offset_zones )
 
 
     # Find the in-fact zone for the given density
