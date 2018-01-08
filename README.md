@@ -66,23 +66,23 @@ Option | Argument | Description
 
 If neither *density option* nor *zone option* are passed, the script prints the polynomial coefficients and residuals.
 
-Option | Argument | Description
-:------|:-----|:-----------
+Option      | Argument              | Description
+:-----------|:----------------------|:-----------
 `--density` | Density value *float* | Calculate *zone number* value for given density
-`--zone` | Zone number *float* | Calculate *density* value for given zone number
-`--test` |                     | Test data for filmspeed, contrast and zone system developing
+`--zone`    | Zone number *float*   | Calculate *density* value for given zone number
+`--test`    |                       | Test data for filmspeed, contrast and zone system developing
 
 
 
 ### Other options
 
-Option | Argument | Description
-:------|:-----|:-----------
-`-h` `--help`       |           | Display help
-`--math`            |           | Additionally display polynomial coefficients and other mathematical stuff.
-`-p` `--precision`  | *integer* | Goal seek precision. 3=fast/fuzzy, 16=too slow and overdone. An appropriate value is 12 (default).
-`--plot` | filename.png | Plot graph and save PNG to *filename*
-`-v` `--verbose`  |  | Add verbosity to output. Also try `-vv` and `-vvv`
+Option        | short | Argument     | Description
+:-------------|:------|:-------------|:-----------
+`--help`      | `-h`  |              | Display help
+`--math`      |       |              | Additionally display polynomial coefficients and other mathematical stuff.
+`--precision` | `-p`  | *integer*    | Goal seek precision. 3=fast/fuzzy, 16=too slow and overdone. An appropriate value is 12 (default).
+`--plot`      |       | filename.png | Plot graph and save PNG to *filename*
+`--verbose`   |  `-v` |              | Add verbosity to output. Also try `-vv` and `-vvv`
 
 
 
