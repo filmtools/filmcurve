@@ -7,17 +7,21 @@ class FilmCurve:
     def __init__(self, zones, densities, x_precision = 12):
 
         # Store for later use
-        self.zones = zones
+
         self.densities = densities
         self.x_precision = x_precision
+        self.setZones( zones )
 
+
+    def setZones(self, zones):
+        self.zones = zones
 
         #
         # Determine the 5th grade polynomial coefficients
         # and create f(y) model function
         #
-        zones_arr = np.array( zones )
-        densities_arr = np.array( densities )
+        zones_arr = np.array( self.zones )
+        densities_arr = np.array( self.densities )
 
         self.coefficients, self.residuals, _, _, _ = np.polyfit(zones_arr, densities_arr, 5, full=True)
         self.interpolator = np.poly1d( self.coefficients )
