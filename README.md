@@ -64,8 +64,6 @@ Option | Argument | Description
 
 ### Mutually exclusive options
 
-If neither *density option* nor *zone option* are passed, the script prints the polynomial coefficients and residuals.
-
 Option      | Argument              | Description
 :-----------|:----------------------|:-----------
 `--density` | Density value *float* | Calculate *zone number* value for given density
