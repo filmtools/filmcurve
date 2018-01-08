@@ -93,9 +93,9 @@ Option        | short | Argument     | Description
 
 
 ```bash
-$ filmcurve -z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
-            -d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66 \
-            --zone 2.00
+$ filmcurve --zone 2.00 \
+-z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
+-d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66 \
 
 # Calculated density is roughly
 0.215413...
@@ -104,18 +104,50 @@ $ filmcurve -z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
 #### Calculate zone number for given density:
 
 ```bash
-$ filmcurve -z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
-            -d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66 \
-            --density 0.38
+$ filmcurve --density 0.38 \
+-z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
+-d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66 \
 
 # Calculated zone is roughly
 3.119267
 ```
 
+#### Perform film test:
+
+To display just the results:
+
+```bash
+$ filmcurve --test \
+-z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
+-d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66 \
+            
+
+# Output: Speed offset, gamma, beta, zone system
+0.04 0.61 0.53 N+0.53
+```
+
+
+Now with more verbose output:
+
+```bash
+$ filmcurve --test -v \
+-z 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 \
+-d 0.02 0.10 0.21 0.38 0.53 0.74 0.97 1.20 1.40 1.55 1.66
+
+# Output: Speed offset, gamma, beta, zone system
+Speed offset: 0.04 f-stops
+Gamma: 0.61
+Beta: 0.53
+Zone system: N+0.53
+
+```
+
+
+
 #### Display polynomial model:
 
 ```bash
-$ filmcurve \
+$ filmcurve --math \
 -z -0.67 -0.33 0.00 0.33 0.67 1.00 1.33 2.33 3.33 4.33 5.33 6.33 7.33 8.33 9.33 \
 -d  0.00  0.01 0.02 0.03 0.02 0.10 0.12 0.28 0.49 0.73 0.99 1.22 1.43 1.62 1.75
 
