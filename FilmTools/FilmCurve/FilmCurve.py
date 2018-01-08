@@ -38,17 +38,23 @@ class FilmCurve:
     #
     def findZone( self, density ):
 
+    	#
+    	# A. Experiment - is this better than the B. section below?
+    	#
+
         # zone_interpolated = np.interp( density, self.interpolator(self.zones), self.zones)
         # return zone_interpolated
 
-        timeout = time.time() + 30 # 30 seconds from now
 
-        # Find good start point for x,
+        # B. Find good start point for x,
         # incrementing with decreasing steps
         # until calculated y (density) value slightly below the target value
 
         x = 0
         y = None
+
+        timeout = time.time() + 30 # 30 seconds from now
+
         for i in range(1, self.x_precision):
             x_increment = (10**i-1)**-1
             while time.time() <= timeout and y <= density:
