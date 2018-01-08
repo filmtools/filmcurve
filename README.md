@@ -23,7 +23,7 @@ $ ln -s ~/path/to/filmcurve/bin/filmcurve ~/bin/filmcurve
 
 ## Homebrew Installation · MacOS
 
-The *curvefit* executable can be installed by a [Homebrew](https://brew.sh/) formula, which itself is part of the [filmtools/homebrew-filmtools](https://github.com/filmtools/homebrew-filmtools) tap.
+The *filmcurve* executable can be installed by a [Homebrew](https://brew.sh/) formula, which itself is part of the [filmtools/homebrew-filmtools](https://github.com/filmtools/homebrew-filmtools) tap.
 
 ```bash
 # Variant 1: Install tap first, formula second
