@@ -3,7 +3,7 @@
 <h1>FilmCurve · CLI</h1>
     
 <p>
-<strong>Finds zone number for a given film density value (or vice versa).<br>
+<strong>Analyses the given zone numbers and film densities, using a quintic polynomial.<br>
 EARLY EXPERIMENTAL</strong>
 </p>
 
