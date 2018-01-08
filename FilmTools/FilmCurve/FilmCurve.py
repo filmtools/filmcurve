@@ -1,6 +1,5 @@
 import numpy as np
 import time
-from numpy.polynomial import polynomial as P
 
 class FilmCurve:
 
