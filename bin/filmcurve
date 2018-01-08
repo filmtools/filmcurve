@@ -231,6 +231,7 @@ if show_math:
 	print "Coefficients:"
 	print calculator.coefficients
 
+	print ""
 	print "Residuals:"
 	print calculator.residuals
 	print ""

@@ -18,11 +18,9 @@ class FilmCurve:
         #
         zones_arr = np.array( zones )
         densities_arr = np.array( densities )
-        coefficients, residuals, _, _, _ = np.polyfit(zones_arr, densities_arr, 5, full=True)
 
-        self.coefficients = coefficients
-        self.residuals    = residuals
-        self.interpolator = np.poly1d( coefficients )
+        self.coefficients, self.residuals, _, _, _ = np.polyfit(zones_arr, densities_arr, 5, full=True)
+        self.interpolator = np.poly1d( self.coefficients )
 
 
     #
