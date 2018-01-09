@@ -6,21 +6,25 @@ class FilmCurve:
     def __init__(self, zones, densities, x_precision = 12):
 
         # Store for later use
-        self.zones = zones
+
         self.densities = densities
         self.x_precision = x_precision
+        self.setZones( zones )
 
-        zones_a = np.array( zones )
-        densities_a = np.array( densities )
+
+    def setZones(self, zones):
+        self.zones = zones
 
         #
         # Determine the 5th grade polynomial coefficients
         # and create f(y) model function
         #
-        coefficients, residuals, _, _, _ = np.polyfit(zones_a, densities_a, 5, full=True)
-        self.coefficients = coefficients
-        self.residuals    = residuals
-        self.interpolator = np.poly1d( coefficients )
+        zones_arr = np.array( self.zones )
+        densities_arr = np.array( self.densities )
+
+        self.coefficients, self.residuals, _, _, _ = np.polyfit(zones_arr, densities_arr, 5, full=True)
+        self.interpolator = np.poly1d( self.coefficients )
+
 
 
     #
@@ -78,6 +82,11 @@ class FilmCurve:
 
         # x is zone
         return x
+
+
+    def setOffset( self, offset ):
+        offset_zones = [ x + offset for x in self.zones]
+        self.setZones( offset_zones )
 
 
     # Find the in-fact zone for the given density
