@@ -38,6 +38,22 @@ class FilmCurve:
 		self.interpolator = np.poly1d( self.coefficients )
 
 
+	def setOffset( self, offset ):
+		offset_zones = [ x + offset for x in self.zones]
+		self.setZones( offset_zones )
+
+
+	# Find the in-fact zone for the given density
+	# and return the numeric difference to given zone
+	# as *negative* number.
+	#
+	# N.B. The result is negative as used in darkroom analysis.
+	def getOffset( self, zone, density):
+
+		found_at = self.findZone( density )
+
+		return zone - found_at
+
 
 	#
 	# OK, thats simple
@@ -95,20 +111,4 @@ class FilmCurve:
 		# x is zone
 		return x
 
-
-	def setOffset( self, offset ):
-		offset_zones = [ x + offset for x in self.zones]
-		self.setZones( offset_zones )
-
-
-	# Find the in-fact zone for the given density
-	# and return the numeric difference to given zone
-	# as *negative* number.
-	#
-	# N.B. The result is negative as used in darkroom analysis.
-	def getOffset( self, zone, density):
-
-		found_at = self.findZone( density )
-
-		return zone - found_at
 
