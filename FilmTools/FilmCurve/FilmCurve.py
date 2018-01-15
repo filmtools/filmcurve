@@ -4,12 +4,9 @@ import time
 class FilmCurve:
 
     def __init__(self, zones, densities, x_precision = 12):
-
-        # Store for later use
-
-        self.densities = densities
-        self.x_precision = x_precision
+        self.setDensities(densities)
         self.setZones( zones )
+        self.x_precision = x_precision
 
 
     def setZones(self, zones):
