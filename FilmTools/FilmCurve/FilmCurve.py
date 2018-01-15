@@ -31,6 +31,10 @@ class FilmCurve:
 	    self.densities = densities
 
 
+	def getDensities( self):
+	    return self.densities
+
+
     #
     # OK, thats simple
     #
