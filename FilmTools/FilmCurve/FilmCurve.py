@@ -26,6 +26,9 @@ class FilmCurve:
         self.interpolator = np.poly1d( self.coefficients )
 
 
+    def getZones( self ):
+    	return self.zones
+
 
     #
     # OK, thats simple
