@@ -30,6 +30,10 @@ class FilmCurve:
     	return self.zones
 
 
+	def setDensities( self, densities):
+	    self.densities = densities
+
+
     #
     # OK, thats simple
     #
